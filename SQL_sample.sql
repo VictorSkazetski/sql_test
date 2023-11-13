@@ -1,4 +1,7 @@
 --view_1
+-- .checkbox_tap {
+--  -webkit-tap-highlight-color: transparent
+-- }
 GO
 CREATE VIEW view_1 AS
 select locale_id, max(lst_dat) as max_time, usr_sts, count(usr_id) as qty_row
@@ -44,7 +47,7 @@ GO
 CREATE VIEW view_5 AS
 select adrmst.adr_id, last_name, first_name, max(lst_logout_dte) as lst_logout_dte
 from adrmst inner join les_usr_ath on adrmst.adr_id = les_usr_ath.adr_id
-where left(last_name, 1) like'[А-Еа-е]' and right(last_name, 2) not in ('ич', 'ИЧ')
+where left(last_name, 1) like'[ГЂ-Г…Г -ГҐ]' and right(last_name, 2) not in ('ГЁГ·', 'Г€Г—')
 group by adrmst.adr_id, last_name, first_name;
 
 --procedure_1
@@ -84,12 +87,12 @@ BEGIN
         IF (@IsIdExists > 0)
         BEGIN
             EXEC sp_executesql @UpdateTable;
-            PRINT N'Запись в таблице успешно обновлена';
+            PRINT N'Г‡Г ГЇГЁГ±Гј Гў ГІГ ГЎГ«ГЁГ¶ГҐ ГіГ±ГЇГҐГёГ­Г® Г®ГЎГ­Г®ГўГ«ГҐГ­Г ';
         END
         ELSE
         BEGIN
             EXEC sp_executesql @InsertIntoTableSQL;
-            PRINT N'Запись успешно добавлена в таблицу.';
+            PRINT N'Г‡Г ГЇГЁГ±Гј ГіГ±ГЇГҐГёГ­Г® Г¤Г®ГЎГ ГўГ«ГҐГ­Г  Гў ГІГ ГЎГ«ГЁГ¶Гі.';
         END
     END
     ELSE
